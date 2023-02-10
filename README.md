@@ -6,7 +6,7 @@ Collaborative communication with sockets implemented in C.
 
 - Install uuid library
   On Fedora use "sudo dnf install libuuid-devel"
-- Add the custom library libmyteams.so to the path with the following command.
+- Add the custom library libmyteams.so to the path with the following command: 
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./libs/myteams
 
 ## How to use
