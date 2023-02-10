@@ -1,0 +1,28 @@
+USER "sticky" "6e09cb74-c6bc-11eb-85e4-d4258b8fed91"
+SUB "74784418-c6bc-11eb-85e4-d4258b8fed91"
+SUB "74784418-c6bc-11eb-85e4-d4258b8fed91"
+USER "notes" "710c8f28-c6bc-11eb-85e4-d4258b8fed91"
+SUB "74784418-c6bc-11eb-85e4-d4258b8fed91"
+SUB "74784418-c6bc-11eb-85e4-d4258b8fed91"
+TEAMS "ateam" "74784418-c6bc-11eb-85e4-d4258b8fed91" "hahah"
+CHANS "acghan" "864d92ec-c6bc-11eb-85e4-d4258b8fed91" "jajjaj"
+THREADS "athread" "92385f92-c6bc-11eb-85e4-d4258b8fed91" "moment of thruth"
+COMMENT "ac omemnt " "sticky"
+COMMENT "heyooo" "notes"
+THREADS "wwwwwht" "830edf18-c6bd-11eb-93b7-d4258b8fed91" "hh"
+CHANS "wewww" "b0079eb0-c6bd-11eb-93b7-d4258b8fed91" "jjsj"
+
+
+
+bool user_exists(user_t **myusers, char *user_name, int client,
+my_var_t *allvar);
+void broadcast_reply_to_users(my_var_t *allvar, char *temp, int client);
+int find_team_index(char *team_name, session_t *allinfo);
+int find_channel_index(char *chan_name, session_t *allinfo, int i);
+int find_thread_index(char *n, session_t *allinfo, int i, int j);
+char *format_logrep_to_client(my_var_t *allvar, char *name,
+const char *uuid_str);
+
+src/finders.c \
+		src/check_exists.c 	\
+		src/broadcast_mngt.c 	\

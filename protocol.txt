@@ -1,0 +1,201 @@
+MYTEAMS Protocol 
+
+The following are the mandatory MYTEAMS commands from client to server  :
+      HELP <CRLF>                                                       : list all available commands and their usage
+      LOGI <SP> <username> <CRLF>                                       : set the user_name used by client
+      LOGO <CRLF>                                                       : disconnect the client from the server
+            
+      SEND <SP> <user_uuid> <SP> <message_body> <CRLF>                  : send a message to a user
+      MESS <SP> <user_uuid> <CRLF>                                      : list all messages exchange with an user
+      
+      SUB  <SP> <team_uuid> <CRLF>                                      : subscribe to the event of a team and its sub directories (enable reception of all events from a team)
+      SUBD <SP> <team_uuid> <CRLF>                                      : list all users subscribed to a team
+      USUB <SP> <team_uuid> <CRLF>                                      : unsubscribe from a team
+      
+      USEG <SP> <team_uuid> <CRLF>                                      : use specify a context team 
+      USEC <SP> <channel_uuid> <CRLF>                                   : use specify a context channel
+      USET <SP> <thread_uuid> <CRLF>                                    : use specify a context thread
+      
+      CANG <SP> <team_name> <SP> <team_description> <CRLF>              : create a new team
+      CANC <SP> <channel_name> <SP> <channel_description> <CRLF>        : create a new channel
+      CANT <SP> <thread_title> <SP> <thread_message> <CRLF>             : create a new thread
+      CANR <SP> <comment_body> <CRLF>                                   : create a new reply
+      
+      LAEG <CRLF>                                                       : list all existing teams
+      LAEC <CRLF>                                                       : list all existing channel
+      LAET <CRLF>                                                       : list all existing thread
+      LAER <CRLF>                                                       : list all existing reply
+
+      DCLU <CRLF>                                                       : display currently logged user info
+      DCSG <CRLF>                                                       : display currently selected team information
+      DCSC <CRLF>                                                       : display currently selected channel information
+      DCST <CRLF>                                                       : display currently selected thread information
+      USER <SP> <user_uuid> <CRLF>                                      : get information about a user
+      
+      
+Please note that all the names, descriptions and message bodies have a pre-defined length which will be as follow:
+   • MAX_NAME_LENGTH 32
+   • MAX_DESCRIPTION_LENGTH 255
+   • MAX_BODY_LENGTH 512
+
+Command-Reply Sequences (Mandatory part)
+
+The server reply is defined to contain the 3-digit code, followed by Space <SP>, followed by one line of text, and terminated by the Telnet end-of-line code <CRLF>.
+
+Example :
+
+-> LOGI <SP> User_name <CRLF>
+<- 100 <SP> Logged in <CRLF>
+-> LOGO <CRLF>
+<- 102 <SP> Logged out <CRLF>
+
+-> : Request command from client to server
+<- : Reply from server to client
+
+
+            Connection Establishment
+               <- 200
+
+            Login
+               LOGI ->
+                  <- 100
+                  <- xxx
+                  <- 101
+               LOGO ->
+                  <- 102
+                  <- xxx
+                  <- 103
+
+            Message handling
+               SEND ->
+                 <- 120
+                 <- xxx
+                 <- 121
+               MESS ->
+                 <- 122
+                 <- xxx
+                 <- 123
+
+            Subscription handling
+               SUB ->
+                  <- 130
+                  <- xxx
+                  <- 131
+               SUBD ->
+                  <- 132
+                  <- xxx
+                  <- 133
+               USUB ->
+                  <- 134
+                  <- xxx
+                  <- 135
+   
+            Use commands
+               HELP ->
+                  <- 210
+                  <- xxx
+               USEG ->
+                  <- 140
+                  <- xxx
+                  <- 141
+               USEC ->
+                  <- 142
+                  <- xxx
+                  <- 143
+               USET ->
+                  <- 144
+                  <- xxx
+                  <- 145
+ 
+            Create command
+               CANG ->
+                  <- 150
+                  <- xxx
+                  <- 151
+               CANC ->
+                  <- 152
+                  <- xxx
+                  <- 153
+               CANT ->
+                  <- 154
+                  <- xxx
+                  <- 155
+               CANR ->
+                  <- 156
+                  <- xxx
+                  <- 157
+
+            List command
+               LAEG ->
+                  <- 160
+                  <- xxx
+                  <- 161
+               LAEC ->
+                  <- 162
+                  <- xxx
+                  <- 163
+               LAET ->
+                  <- 164
+                  <- xxx
+                  <- 165
+               LAER ->
+                  <- 166
+                  <- xxx
+                  <- 167
+
+            Info command
+               DCLU ->
+                  <- 170
+                  <- xxx
+                  <- 171
+               DCSG ->
+                  <- 172
+                  <- xxx
+                  <- 173
+               DCSC ->
+                  <- 174
+                  <- xxx
+                  <- 175
+               DCST ->
+                  <- 176
+                  <- xxx
+                  <- 177
+               USER ->
+                  <- 110
+                  <- xxx
+                  <- 111
+
+            Miscellaneous commands
+               NOOP ->
+                  <- 220
+                  <- xxx
+
+Numeric  Order List of Mandatory Reply Codes
+
+
+         100   User successfully logged in
+         101   User login failed
+         102   User successfully logged out
+         103   User logout failed
+         120   Successfully sent message
+         121   Message send failed
+         122   List all message successful
+         123   Listing message history failed
+         130   Subscription to a team successful
+         131   Failed to subscribe to a team
+         132   Listing all user subscribed to a team
+         133   Failed to list all users subscribed to a team
+         134   unsubscribe from a team
+         135   unsubscription failed
+         140   using a chosen team
+         141   failed to use team
+         150   team creation successful
+         151   failed to create tea
+         160   Listing all existing team successfully
+         161   failed to list team
+         200   Connection Establishment
+         210   HELP
+         220   Command okay
+         
+         xxx Error (RFC compliant)
+
